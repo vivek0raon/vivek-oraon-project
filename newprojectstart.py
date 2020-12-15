@@ -31,7 +31,7 @@ def play(level,u_name):
     c=1
     mycursor.execute("select * from questions")
     data=mycursor.fetchall()
-    
+    lenght=len(data)
     for i in data:
         option=['A','B','C','D']
         if i[7]==level:
@@ -51,6 +51,10 @@ def play(level,u_name):
                 print("correct option=",i[5],"\t\tcurrent score=",b)
             scoreupdate(level,b,u_name)
             c=c+1
+        else:
+            if data.index(i)==lenght-1:
+                print("NO questions were addded on this level")
+
 userlogin=input("\t\t\tQUIZ APP\nCHOOSE-\n1.sign in\n2.sign up\n3.Add questions\n=> ")
 if userlogin=='1':
     u_name=input("\nenter your unique name:")
