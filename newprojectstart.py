@@ -55,7 +55,7 @@ def play(level,u_name):
             if data.index(i)==lenght-1:
                 print("NO questions were addded on this level")
 
-userlogin=input("\t\t\tQUIZ APP\nCHOOSE-\n1.sign in\n2.sign up\n3.Add questions\n=> ")
+userlogin=input("\t\t\tQUIZ APP\nCHOOSE-\n1.sign in\n2.sign up\n3.Add questions\n4.leaderboard\n=> ")
 if userlogin=='1':
     u_name=input("\nenter your unique name:")
     u_pass=input("enter your password:")
@@ -120,5 +120,64 @@ elif userlogin=='3':
     mycursor.execute(sql_in)
     connect.commit()
     print("your question has been added.")
+elif userlogin=='4':
+    print("\t\t---leaderboard---")
+    ask=input("enter any hardness\n'h'-hard\n'm'-meadium\n's'-simple\n=>")
+    if ask=="s":
+        mycursor.execute("select s_score from u_score")
+        get=mycursor.fetchall()
+        delete=set(get)
+        order=sorted(list(delete))
+        length=len(order)
+        if length>3:
+            length=4
+        for j in range(1,length):
+            large=order[-j]
+            l=str(large[0])
+            print("\t\trank=",j,"\n\t---------------------")
+            mycursor.execute("select name from u_score where s_score="+l)
+            name=mycursor.fetchall()
+            for i in name:
+                print("name=>"+i[0]+"\thighest score=>",str(l))
+            print()
+    if ask=="h":
+        mycursor.execute("select h_score from u_score")
+        get=mycursor.fetchall()
+        delete=set(get)
+        order=sorted(list(delete))
+        length=len(order)
+        if length>3:
+            length=4
+        for j in range(1,length):
+            large=order[-j]
+            l=str(large[0])
+            print("\t\trank=",j,"\n\t---------------------")
+            mycursor.execute("select name from u_score where h_score="+l)
+            name=mycursor.fetchall()
+            for i in name:
+                print("name=>"+i[0]+"\thighest score=>",str(l))
+            print()
+    if ask=="m":
+        mycursor.execute("select m_score from u_score")
+        get=mycursor.fetchall()
+        delete=set(get)
+        order=sorted(list(delete))
+        length=len(order)
+        if length>3:
+            length=4
+        for j in range(1,length):
+            large=order[-j]
+            l=str(large[0])
+            print("\t\trank=",j,"\n\t---------------------")
+            mycursor.execute("select name from u_score where m_score="+l)
+            name=mycursor.fetchall()
+            for i in name:
+                print("name=>"+i[0]+"\thighest score=>",str(l))
+            print()
 else:
     print("wrong choice")
+
+
+
+
+
